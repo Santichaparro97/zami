@@ -1,0 +1,31 @@
+# Sistema operativo
+Thumbs.db
+.DS_Store
+desktop.ini
+
+# Editores
+.vscode/
+.idea/
+
+# Dependencias
+node_modules/
+.pnpm-store/
+
+# Vercel
+.vercel/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Servidor local (no se sube)
+server.ps1
+
+# Backups y temporales
+*.bak
+*.tmp
+*_original.png
+
+# OS / env
+.env
+.env.local

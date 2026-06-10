@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Zamiempanadas — Empanadas hechas como en Salta</title>
+  <meta name="description" content="Empanadas salteñas hechas a mano, con masa casera y recetas familiares del norte argentino. Envíos en zona norte." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;800&family=Inter:wght@300;400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" type="image/png" href="img/favicon.png?v=2" />
+  <link rel="apple-touch-icon" href="img/favicon.png?v=2" />
+</head>
+<body>
+
+  <!-- Audio de bienvenida (video invisible para extraer audio) -->
+  <video id="introAudio" class="intro-audio" src="img/audio.mp4" autoplay muted playsinline preload="auto" loop aria-hidden="true"></video>
+
+  <!-- Intro splash: aparece al cargar, desaparece al click/scroll -->
+  <div id="intro" class="intro" aria-label="Click para entrar">
+    <div class="intro__word intro__word--top" aria-hidden="true">
+      <span>S</span><span>A</span><span>B</span><span>O</span><span>R</span><span class="gap"></span><span>1</span><span>0</span><span>0</span><span>%</span>
+    </div>
+    <div class="intro__inner">
+      <div class="intro__img intro__img--top"></div>
+      <div class="intro__img intro__img--bottom"></div>
+    </div>
+    <div class="intro__word intro__word--bottom" aria-hidden="true">
+      <span>A</span><span>R</span><span>G</span><span>E</span><span>N</span><span>T</span><span>I</span><span>N</span><span>O</span>
+    </div>
+    <p class="intro__cta">Click para entrar</p>
+  </div>
+
+  <!-- Carrito flotante en esquina inferior derecha -->
+  <button class="cart-fab" id="openCart" aria-label="Ver pedido">
+    🛒 <span id="cartCount">0</span>
+  </button>
+
+  <div id="top" class="home">
+    <section class="strip" aria-label="Información destacada">
+      <div class="strip__track">
+        <span class="strip__item"><span class="strip__txt">Envío zona norte</span></span>
+        <span class="strip__item"><span class="strip__txt">De martes a domingo</span></span>
+        <span class="strip__item"><span class="strip__txt">Recetas del norte</span></span>
+        <span class="strip__item"><span class="strip__txt">Venta mayorista</span></span>
+        <span class="strip__item"><span class="strip__txt">Eventos</span></span>
+        <span class="strip__item" aria-hidden="true"><span class="strip__txt">Envío zona norte</span></span>
+        <span class="strip__item" aria-hidden="true"><span class="strip__txt">De martes a domingo</span></span>
+        <span class="strip__item" aria-hidden="true"><span class="strip__txt">Recetas del norte</span></span>
+        <span class="strip__item" aria-hidden="true"><span class="strip__txt">Venta mayorista</span></span>
+        <span class="strip__item" aria-hidden="true"><span class="strip__txt">Eventos</span></span>
+        <span class="strip__item" aria-hidden="true"><span class="strip__txt">Envío zona norte</span></span>
+        <span class="strip__item" aria-hidden="true"><span class="strip__txt">De martes a domingo</span></span>
+        <span class="strip__item" aria-hidden="true"><span class="strip__txt">Recetas del norte</span></span>
+        <span class="strip__item" aria-hidden="true"><span class="strip__txt">Venta mayorista</span></span>
+        <span class="strip__item" aria-hidden="true"><span class="strip__txt">Eventos</span></span>
+      </div>
+    </section>
+
+    <nav class="topnav" aria-label="Navegación principal">
+      <a href="#carta">Carta</a>
+      <a href="#nosotros">Nosotros</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+
+    <section class="hero">
+      <div class="hero__bg"></div>
+      <div class="hero__content">
+        <div class="hero__text">
+          <div class="hero__heading">
+            <img src="img/favicon.png?v=2" alt="Zami Empanadas Salteñas" class="hero__logo" />
+            <div>
+              <p class="eyebrow">Tradición salteña · Hecho a mano</p>
+              <h1><span class="hero__brand">ZAMI</span> <span class="hero__dash">- Empanadas</span><br/><span class="hero__white">hechas como en</span><br/><em>Salta.</em></h1>
+            </div>
+          </div>
+          <p class="hero__sub">Recetas familiares, masa casera y los sabores del norte argentino — en cada mesa hace más de 2 años.</p>
+        </div>
+        <div class="hero__cta hero__features">
+          <div class="feature-card">
+            <div class="feature-card__icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M3 7h11v8H3z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+                <path d="M14 10h4l2 3v2h-2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+                <path d="M14 15h-3" fill="none" stroke="currentColor" stroke-width="1.8"/>
+                <circle cx="6.5" cy="17" r="1.8" fill="none" stroke="currentColor" stroke-width="1.8"/>
+                <circle cx="17.5" cy="17" r="1.8" fill="none" stroke="currentColor" stroke-width="1.8"/>
+              </svg>
+            </div>
+            <div class="feature-card__text">
+              <h3>Delivery</h3>
+              <p>Entrega inmediata</p>
+            </div>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-card__icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 3l8 3v5c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-3z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+                <path d="M8.5 12l2.5 2.5L16 9.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="feature-card__text">
+              <h3>Compra segura</h3>
+              <p>Seguridad de pago</p>
+            </div>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-card__icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 3l2.5 6 6.5.5-5 4.5 1.5 6.5L12 17l-5.5 3.5L8 14 3 9.5 9.5 9z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="feature-card__text">
+              <h3>Calidad Premium</h3>
+              <p>100% producto Argentino</p>
+            </div>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-card__icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 3a9 9 0 1 1-9 9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                <path d="M12 7v5l3 2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M12 3l2.5 2-2.5 2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="feature-card__text">
+              <h3>Atención inmediata</h3>
+              <p>Respuestas en minutos</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <section id="carta" class="carta-section">
+    <div class="carta-section__head">
+      <svg class="sabores-arc" viewBox="0 0 800 160" xmlns="http://www.w3.org/2000/svg" aria-label="SABORES">
+        <defs>
+          <path id="saborespath" d="M 80 130 Q 400 30 720 130" />
+        </defs>
+        <text class="sabores-arc__text">
+          <textPath href="#saborespath" startOffset="50%" text-anchor="middle">
+            <tspan fill="#ffffff">S</tspan><tspan fill="#87ceeb">A</tspan><tspan fill="#ffffff">B</tspan><tspan fill="#87ceeb">O</tspan><tspan fill="#ffffff">R</tspan><tspan fill="#87ceeb">E</tspan><tspan fill="#ffffff">S</tspan>
+          </textPath>
+        </text>
+      </svg>
+    </div>
+
+    <div class="empanadas-deck" id="saboresGrid"></div>
+  </section>
+
+  <section id="nosotros" class="section about">
+    <div class="about__img">
+      <img src="img/Nosotros.png" alt="Proceso artesanal de las empanadas Zamiempanadas" loading="lazy" />
+    </div>
+    <div class="about__text">
+      <p class="eyebrow">Nosotros</p>
+      <h2>Hechas a Mano, <em>Como Debe Ser</em></h2>
+      <p>Creemos que los mejores sabores nacen de los mejores ingredientes y de una elaboración hecha con dedicación. Por eso cuidamos cada etapa del proceso para garantizar frescura, calidad y el auténtico sabor de las empanadas salteñas.</p>
+      <p>Cada receta respeta la tradición del norte argentino, combinando ingredientes seleccionados con una preparación artesanal que se refleja en cada bocado.</p>
+      <ul class="checks">
+        <li>Masa fresca estirada al momento</li>
+        <li>Carne de lomo cortada a cuchillo</li>
+        <li>Especias tradicionales seleccionadas del norte</li>
+        <li>Elaboración artesanal, sin procesos industriales</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="contacto" class="pedidos-section">
+    <div class="pedidos-section__head">
+      <p class="eyebrow">Hacé tu pedido</p>
+      <h2>Llevá <em>Salta</em> a tu mesa</h2>
+      <p class="lead">Empanadas hechas a mano, listas para vos. Elegí cómo querés disfrutarlas.</p>
+    </div>
+
+    <div class="pedidos-grid">
+      <a class="pedido-card" data-wa="Hola Zamiempanadas! Quiero hacer un pedido de empanadas 🥟" href="#">
+        <div class="pedido-card__icon">
+          <svg viewBox="0 0 64 64" aria-hidden="true">
+            <path d="M16 26 Q16 12 32 12 Q48 12 48 26 L48 50 Q48 54 44 54 L20 54 Q16 54 16 50 Z" fill="currentColor" opacity=".15"/>
+            <path d="M16 26 Q16 12 32 12 Q48 12 48 26 L48 50 Q48 54 44 54 L20 54 Q16 54 16 50 Z" fill="none" stroke="currentColor" stroke-width="2.5"/>
+            <path d="M16 26 Q16 12 32 12 Q48 12 48 26" fill="none" stroke="currentColor" stroke-width="2.5" stroke-dasharray="3 4"/>
+            <circle cx="26" cy="34" r="2" fill="currentColor"/>
+            <circle cx="38" cy="34" r="2" fill="currentColor"/>
+            <circle cx="32" cy="42" r="2" fill="currentColor"/>
+          </svg>
+        </div>
+        <h3 class="pedido-card__title">Pedir Empanadas</h3>
+        <p class="pedido-card__desc">Docenas listas para retirar o con envío a zona norte. Recién horneadas, masa casera.</p>
+        <span class="pedido-card__cta">Pedir ahora →</span>
+      </a>
+
+      <a class="pedido-card" data-wa="Hola Zamiempanadas! Quiero pedir empanadas congeladas para tener en casa 🧊" href="#">
+        <div class="pedido-card__icon">
+          <svg viewBox="0 0 64 64" aria-hidden="true">
+            <path d="M32 8 V56 M16 18 L48 46 M48 18 L16 46 M14 32 H50" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+            <path d="M28 12 L32 8 L36 12 M28 52 L32 56 L36 52 M14 28 L10 32 L14 36 M50 28 L54 32 L50 36" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <h3 class="pedido-card__title">Empanadas Congeladas</h3>
+        <p class="pedido-card__desc">Llevátelas crudas, las horneás cuando quieras. Frescura intacta, sabor salteño en casa.</p>
+        <span class="pedido-card__cta">Reservar pack →</span>
+      </a>
+
+      <a class="pedido-card" data-wa="Hola Zamiempanadas! Quiero consultar por un evento. Cantidad de personas: __ — Fecha: __" href="#">
+        <div class="pedido-card__icon">
+          <svg viewBox="0 0 64 64" aria-hidden="true">
+            <path d="M12 22 L52 22 L48 48 Q48 52 44 52 L20 52 Q16 52 16 48 Z" fill="none" stroke="currentColor" stroke-width="2.5"/>
+            <path d="M20 22 V14 Q20 10 24 10 H40 Q44 10 44 14 V22" fill="none" stroke="currentColor" stroke-width="2.5"/>
+            <path d="M28 32 Q32 28 36 32 Q40 36 36 40 Q32 44 28 40 Q24 36 28 32 Z" fill="currentColor" opacity=".25"/>
+            <circle cx="22" cy="6" r="1.5" fill="currentColor"/>
+            <circle cx="32" cy="4" r="1.5" fill="currentColor"/>
+            <circle cx="42" cy="6" r="1.5" fill="currentColor"/>
+          </svg>
+        </div>
+        <h3 class="pedido-card__title">Eventos y Catering</h3>
+        <p class="pedido-card__desc">Cumpleaños, reuniones, casamientos. Cotizamos a medida para que solo te ocupes de disfrutar.</p>
+        <span class="pedido-card__cta">Solicitar cotización →</span>
+      </a>
+
+      <a class="pedido-card" data-wa="Hola Zamiempanadas! Quiero más info." href="#">
+        <div class="pedido-card__icon">
+          <svg viewBox="0 0 64 64" aria-hidden="true">
+            <path d="M52 44 Q52 50 46 50 Q24 50 14 28 Q12 22 18 22 L24 22 L28 30 L24 34 Q28 42 38 46 L42 42 L50 44 Q52 44 52 44 Z" fill="currentColor" opacity=".2"/>
+            <path d="M52 44 Q52 50 46 50 Q24 50 14 28 Q12 22 18 22 L24 22 L28 30 L24 34 Q28 42 38 46 L42 42 L50 44 Q52 44 52 44 Z" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/>
+            <circle cx="50" cy="14" r="2" fill="currentColor"/>
+            <circle cx="44" cy="20" r="2" fill="currentColor"/>
+            <circle cx="38" cy="14" r="2" fill="currentColor"/>
+          </svg>
+        </div>
+        <h3 class="pedido-card__title">Contacto Directo</h3>
+        <p class="pedido-card__desc">WhatsApp, Instagram o consulta. Estamos martes a domingo para responderte.</p>
+        <span class="pedido-card__cta">Escribinos →</span>
+      </a>
+    </div>
+
+    <div class="pedidos-extra">
+      <span>📍 Zona Norte · GBA</span>
+      <span>🗓️ Mar a Dom</span>
+      <span>💳 Efectivo · Transferencia · MP</span>
+      <a href="https://www.instagram.com/zamiempanadas/" target="_blank" rel="noopener">📷 @zamiempanadas</a>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <p>© <span id="year"></span> Zamiempanadas — Empanadas hechas como en Salta.</p>
+  </footer>
+
+  <!-- CARRITO -->
+  <aside class="cart" id="cart" aria-hidden="true">
+    <div class="cart__overlay" id="closeCart"></div>
+    <div class="cart__panel" role="dialog" aria-label="Tu pedido">
+      <div class="cart__head">
+        <h3>Tu pedido</h3>
+        <button class="cart__close" id="closeCartBtn" aria-label="Cerrar">×</button>
+      </div>
+      <ul class="cart__list" id="cartList"></ul>
+      <div class="cart__empty" id="cartEmpty">Tu pedido está vacío. Agregá algo de la carta 👆</div>
+      <div class="cart__total">
+        <span>Total</span>
+        <strong id="cartTotal">$0</strong>
+      </div>
+      <button class="btn btn--primary btn--block" id="sendWa">Pedir por WhatsApp</button>
+      <p class="cart__note">El pedido se envía como mensaje a nuestro WhatsApp. Te confirmamos y coordinamos envío.</p>
+    </div>
+  </aside>
+
+  <script src="app.js"></script>
+</body>
+</html>

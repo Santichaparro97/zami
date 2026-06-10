@@ -1,0 +1,1633 @@
+/* === Zamiempanadas — paleta inspirada en la carta y las fotos ===
+   Fondo oscuro, tipografía cálida, acentos en rojo profundo y dorado.
+*/
+:root{
+  --bg: #14110f;
+  --bg-2: #1c1815;
+  --bg-3: #251f1b;
+  --cream: #f4ead7;
+  --cream-soft: #e8dcc1;
+  --muted: #a89986;
+  --accent: #c0392b;        /* rojo empanada */
+  --accent-2: #d4a24a;      /* dorado dorado masa */
+  --line: #2d2520;
+  --shadow: 0 20px 60px rgba(0,0,0,.45);
+  --radius: 14px;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+/* video invisible: solo lo usamos por su audio */
+.intro-audio{
+  position:fixed;
+  width:1px;height:1px;
+  opacity:0;
+  pointer-events:none;
+  z-index:-100;
+  left:-10px;top:-10px;
+}
+
+/* === Intro splash que cubre toda la pantalla al cargar === */
+.intro{
+  position:fixed;inset:0;z-index:1000;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  gap:1rem;
+  background:transparent;        /* se ve el fondo fijo del body */
+  cursor:pointer;
+  transition:opacity .5s ease;
+}
+
+/* SABOR 100% (arriba) y ARGENTINO (abajo): letras horizontales */
+.intro__word{
+  display:flex;flex-direction:row;align-items:center;justify-content:center;
+  font-family:'Playfair Display',serif;
+  font-weight:800;
+  font-size:clamp(2.2rem,5vw,4rem);
+  letter-spacing:.04em;
+  line-height:1;
+  pointer-events:none;
+  user-select:none;
+}
+.intro__word span{
+  display:inline-block;
+  margin:0 .02em;
+  transition:transform .4s ease,opacity .4s ease;
+}
+.intro__word span.gap{
+  width:.6em;
+  margin:0;
+}
+.intro__word--top{
+  color:#ffffff;
+  text-shadow:
+    0 0 6px rgba(255,255,255,.55),
+    0 0 18px rgba(255,255,255,.35),
+    0 2px 8px rgba(0,0,0,.6);
+}
+.intro__word--bottom{
+  color:#87ceeb;
+  text-shadow:
+    0 0 6px rgba(135,206,235,.6),
+    0 0 18px rgba(135,206,235,.4),
+    0 2px 8px rgba(0,0,0,.6);
+}
+/* stagger de aparición sutil al cargar */
+.intro__word span{
+  animation:letterFadeIn .8s ease both;
+}
+.intro__word--top    span:nth-child(1){animation-delay:.15s}
+.intro__word--top    span:nth-child(2){animation-delay:.21s}
+.intro__word--top    span:nth-child(3){animation-delay:.27s}
+.intro__word--top    span:nth-child(4){animation-delay:.33s}
+.intro__word--top    span:nth-child(5){animation-delay:.39s}
+.intro__word--top    span:nth-child(6){animation-delay:.45s}
+.intro__word--top    span:nth-child(7){animation-delay:.51s}
+.intro__word--top    span:nth-child(8){animation-delay:.57s}
+.intro__word--top    span:nth-child(9){animation-delay:.63s}
+.intro__word--top    span:nth-child(10){animation-delay:.69s}
+.intro__word--bottom span:nth-child(1){animation-delay:.15s}
+.intro__word--bottom span:nth-child(2){animation-delay:.22s}
+.intro__word--bottom span:nth-child(3){animation-delay:.29s}
+.intro__word--bottom span:nth-child(4){animation-delay:.36s}
+.intro__word--bottom span:nth-child(5){animation-delay:.43s}
+.intro__word--bottom span:nth-child(6){animation-delay:.50s}
+.intro__word--bottom span:nth-child(7){animation-delay:.57s}
+.intro__word--bottom span:nth-child(8){animation-delay:.64s}
+.intro__word--bottom span:nth-child(9){animation-delay:.71s}
+@keyframes letterFadeIn{
+  from{opacity:0;transform:translateY(20px)}
+  to  {opacity:1;transform:translateY(0)}
+}
+/* desaparecen junto con la intro: SABOR 100% sube y ARGENTINO baja */
+.intro--leaving .intro__word--top{
+  transform:translateY(-100vh);
+  opacity:0;
+  transition:transform 1.6s cubic-bezier(.6,.05,.3,1),opacity 1.4s ease;
+}
+.intro--leaving .intro__word--bottom{
+  transform:translateY(100vh);
+  opacity:0;
+  transition:transform 1.6s cubic-bezier(.6,.05,.3,1),opacity 1.4s ease;
+}
+.intro__inner{
+  position:relative;
+  width:min(320px,70vw);
+  aspect-ratio:262/336;          /* matchea proporción de inicio.png */
+  animation:introFloat 4s ease-in-out infinite;
+}
+.intro__img{
+  position:absolute;inset:0;
+  background:url('img/inicio.png') center center / contain no-repeat;
+  filter:drop-shadow(0 18px 28px rgba(0,0,0,.55));
+  transition:transform 1.9s cubic-bezier(.6,.05,.3,1), opacity 1.8s ease;
+}
+.intro__img--top{
+  clip-path:inset(0 0 52% 0);    /* solo la mitad superior (empanada con etiqueta) */
+}
+.intro__img--bottom{
+  clip-path:inset(48% 0 0 0);    /* solo la mitad inferior (empanada abierta) */
+}
+.intro__cta{
+  font-family:'Inter',sans-serif;
+  font-size:.85rem;font-weight:500;
+  letter-spacing:.32em;
+  text-transform:uppercase;
+  color:#ffffff;
+  margin:0;
+  text-align:center;
+  animation:introPulse 2s ease-in-out infinite;
+  text-shadow:0 1px 6px rgba(0,0,0,.6);
+  transition:opacity .4s ease;
+}
+@keyframes introFloat{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-14px)}
+}
+@keyframes introPulse{
+  0%,100%{opacity:.55}
+  50%{opacity:1}
+}
+/* salida: empanada superior vuela a la derecha, inferior a la izquierda */
+.intro--leaving .intro__img--top{
+  transform:translateX(140vw) rotate(22deg);
+  opacity:0;
+}
+.intro--leaving .intro__img--bottom{
+  transform:translateX(-140vw) rotate(-22deg);
+  opacity:0;
+}
+.intro--leaving .intro__cta{opacity:0;transition:opacity .25s ease}
+.intro--gone{display:none}
+/* bloquear scroll mientras la intro está activa */
+body.intro-active{overflow:hidden}
+/* ocultar TODO el contenido detrás de la intro — solo se ve el fondo fijo + la empanada flotando */
+body.intro-active > *:not(.intro):not(script){
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+}
+/* cuando la intro se va, el contenido aparece con un fade suave */
+body > *:not(.intro):not(script){
+  transition:opacity 1.7s ease,visibility 0s;
+}
+
+body{
+  background:#1a2330;     /* color piedra del borde de la bandera, fallback */
+  color:var(--cream);
+  font-family:'Inter',system-ui,sans-serif;
+  font-weight:300;
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+/* fondo fijo: la imagen de la bandera ocupa toda la pantalla y queda quieta al scrollear */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:-1;
+  background:
+    url('img/fone123.png') center top / 100% auto no-repeat,
+    #1a1410;
+  opacity:.43;     /* visibilidad 2.5/10 — punto medio entre transparente y nítida */
+}
+body::after{
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:-1;
+  background:rgba(10,14,20,.08);   /* velo oscuro sutil para legibilidad */
+  pointer-events:none;
+}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+
+h1,h2,h3{font-family:'Playfair Display',serif;font-weight:800;line-height:1.1;color:var(--cream)}
+h1{font-size:clamp(2.05rem,4.3vw,3.5rem);letter-spacing:-.5px}
+h1 em{color:#87ceeb;font-style:italic;text-shadow:0 2px 14px rgba(135,206,235,.5), 0 0 22px rgba(135,206,235,.35)}
+h2{font-size:clamp(1.9rem,3.6vw,2.8rem);letter-spacing:-.3px}
+h3{font-size:1.15rem;letter-spacing:.2px}
+
+.eyebrow{
+  text-transform:uppercase;
+  letter-spacing:.22em;
+  font-size:.68rem;
+  color:var(--accent-2);
+  font-weight:600;
+  margin-bottom:.4rem;
+}
+
+/* === NAV === */
+/* nav antigua deshabilitada */
+.nav{display:none}
+.nav--hidden{transform:translateY(-100%)}
+
+/* === Top nav: solo 3 links centrados, sin fondo === */
+.topnav{
+  display:flex;justify-content:center;align-items:center;gap:2.2rem;
+  padding:1rem 1.4rem .6rem;
+  position:relative;z-index:3;
+}
+.topnav a{
+  font-family:'Inter',sans-serif;
+  font-size:.85rem;font-weight:600;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:var(--cream);
+  text-decoration:none;
+  padding:.35rem .2rem;
+  position:relative;
+  transition:color .2s ease;
+}
+.topnav a::after{
+  content:"";
+  position:absolute;left:50%;bottom:0;
+  width:0;height:1px;
+  background:#87ceeb;
+  transition:width .25s ease,left .25s ease;
+}
+.topnav a:hover{color:#87ceeb}
+.topnav a:hover::after{width:100%;left:0}
+
+/* === Carrito flotante en esquina inferior derecha === */
+.cart-fab{
+  position:fixed;bottom:1.4rem;right:1.4rem;
+  z-index:60;
+  background:var(--accent);color:#fff;
+  border:none;cursor:pointer;
+  width:56px;height:56px;
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;gap:.2rem;
+  font-size:1.05rem;font-weight:700;
+  box-shadow:0 10px 24px rgba(0,0,0,.45),0 4px 10px rgba(0,0,0,.3);
+  transition:transform .15s,background .2s;
+}
+.cart-fab:hover{background:#a82e22;transform:translateY(-2px) scale(1.05)}
+.cart-fab span{
+  position:absolute;top:-4px;right:-4px;
+  background:#fff;color:var(--accent);
+  font-size:.7rem;font-weight:800;
+  width:22px;height:22px;
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 2px 6px rgba(0,0,0,.3);
+}
+.nav__inner{
+  max-width:1200px;margin:0 auto;
+  padding:.9rem 1.4rem;
+  display:flex;align-items:center;gap:2rem;
+}
+.brand{
+  display:flex;align-items:center;gap:.7rem;
+  font-family:'Playfair Display',serif;
+  font-weight:800;font-size:1.25rem;
+  letter-spacing:-.5px;
+}
+.brand__logo{
+  width:42px;height:42px;
+  border-radius:50%;
+  object-fit:cover;
+  border:1.5px solid var(--accent);
+  box-shadow:0 0 14px rgba(192,57,43,.35);
+  background:#000;
+}
+.brand__text em{color:var(--accent-2);font-style:italic;font-weight:600}
+@media (max-width:520px){
+  .brand__text{display:none}
+}
+.nav nav{display:flex;gap:1.6rem;margin-left:auto}
+.nav nav a{
+  font-size:.92rem;color:var(--cream-soft);
+  position:relative;padding:.2rem 0;
+}
+.nav nav a:hover{color:var(--accent-2)}
+.nav__cart{
+  background:var(--accent);color:#fff;
+  border:none;cursor:pointer;
+  padding:.55rem 1rem;border-radius:999px;
+  font-weight:600;font-size:.9rem;
+  display:flex;align-items:center;gap:.4rem;
+  transition:transform .15s,background .2s;
+}
+.nav__cart:hover{background:#a82e22;transform:translateY(-1px)}
+
+@media (max-width:720px){
+  .nav nav{display:none}
+}
+
+/* === HERO === */
+/* === Logo a la izquierda del título principal === */
+/* el heading ocupa solo el ancho del título original; el logo cuelga afuera a la izquierda */
+.hero__heading{
+  position:relative;
+  display:block;
+}
+.hero__heading > div{
+  /* el wrapper de eyebrow+h1 sirve como ancla para el logo */
+  position:relative;
+}
+.hero__logo{
+  position:absolute;
+  right:calc(100% + 1.2rem);  /* a la izquierda del bloque del título */
+  /* centrar verticalmente con la mitad del h1 (no del heading completo) */
+  top:50%;
+  margin:0;
+  transform:translateY(-50%);
+  width:90px;height:90px;
+  border-radius:50%;
+  box-shadow:0 6px 18px rgba(0,0,0,.4),0 0 16px rgba(163,31,43,.25);
+  animation:logoFloat 5s ease-in-out infinite;
+}
+@keyframes logoFloat{
+  0%,100%{transform:translateY(-50%)}
+  50%{transform:translateY(calc(-50% - 4px))}
+}
+@media (max-width:560px){
+  .hero__heading{gap:.8rem}
+  .hero__logo{width:64px;height:64px}
+}
+
+/* === HOME (hero + carrusel en una sola pantalla en desktop) === */
+.home{
+  display:flex;flex-direction:column;
+  position:relative;
+  background:transparent;
+  overflow:visible;
+}
+.strip, .hero{ position:relative; z-index:2; }
+
+.hero{
+  position:relative;
+  flex:0 1 auto;
+  display:flex;align-items:center;
+  /* compactado para que junto con la carta entren en la primera pantalla */
+  padding:.3rem 1.4rem .2rem;
+  overflow:hidden;
+  background:transparent;
+}
+/* hero: banner más grande (9/10) y un poco más visible (transparencia 3/10) */
+.hero__bg{
+  position:absolute;inset:0;
+  background:transparent;
+  z-index:0;
+  overflow:hidden;
+}
+/* overlay levemente más liviano para acompañar la subida a 3/10 */
+.hero__bg::before{
+  content:"";
+  position:absolute;inset:0;
+  background:transparent;
+  z-index:1;
+}
+@keyframes neonPulse{
+  0%,100%{opacity:.55}
+  50%{opacity:1}
+}
+/* fade suave hacia la franja — termina en transparente, sin línea de color */
+.hero::after{
+  content:"";
+  position:absolute;left:0;right:0;bottom:0;
+  height:90px;
+  background:linear-gradient(180deg, rgba(14,18,24,0) 0%, rgba(14,18,24,0) 100%);
+  z-index:2;
+  pointer-events:none;
+}
+/* shimmer en banda diagonal */
+.hero::before{
+  content:"";
+  position:absolute;
+  top:0;bottom:0;
+  left:-50%;
+  width:50%;
+  background:linear-gradient(
+    115deg,
+    transparent 0%,
+    transparent 35%,
+    rgba(255,225,170,0) 45%,
+    rgba(255,225,170,.22) 50%,
+    rgba(255,255,255,.35) 52%,
+    rgba(255,225,170,.22) 54%,
+    rgba(255,225,170,0) 65%,
+    transparent 100%
+  );
+  transform:skewX(-12deg);
+  animation:shimmer 6.5s ease-in-out infinite;
+  pointer-events:none;
+  z-index:2;
+}
+@keyframes shimmer{
+  0%   { left:-50%;  opacity:0;   }
+  15%  {              opacity:.7;  }
+  60%  { left:120%;  opacity:.7;  }
+  100% { left:120%;  opacity:0;   }
+}
+.hero__content{
+  position:relative;z-index:2;
+  max-width:1200px;margin:0 auto;width:100%;
+  text-align:left;
+  display:flex;
+  align-items:center;            /* alineación vertical entre título y tarjetas */
+  justify-content:space-between;
+  gap:2rem;
+}
+.hero__text{display:block;flex:0 1 auto;min-width:0}
+/* las 4 tarjetas: alineadas verticalmente al título via flex, empujadas al borde derecho del viewport */
+@media (min-width:821px){
+  .hero__features{
+    flex:0 0 auto;
+    margin-right:calc((50% - 50vw) / 2 + .8rem);
+  }
+}
+.hero__cta{
+  display:flex;flex-direction:column;gap:1rem;
+  align-items:stretch;
+  margin-top:0;
+}
+@media (max-width:820px){
+  .hero__content{grid-template-columns:1fr;gap:1.4rem}
+  .hero__cta{flex-direction:row;flex-wrap:wrap}
+}
+
+/* === HERO: 4 tarjetas de beneficios (estilo perfumes) === */
+.hero__features{
+  display:grid !important;
+  grid-template-columns:1fr 1fr;
+  gap:.5rem;
+  min-width:380px;
+}
+.feature-card{
+  display:flex;align-items:center;gap:.8rem;
+  padding:.75rem 1rem;
+  border-radius:13px;
+  background:linear-gradient(135deg,rgba(20,15,12,.42) 0%,rgba(14,10,8,.47) 100%);
+  border:1px solid rgba(244,234,215,.05);
+  backdrop-filter:blur(6px);
+  -webkit-backdrop-filter:blur(6px);
+  transition:transform .35s ease,border-color .35s ease,box-shadow .35s ease;
+}
+.feature-card:hover{
+  transform:translateX(-4px);
+  border-color:rgba(135,206,235,.35);
+  box-shadow:0 8px 20px rgba(0,0,0,.4),0 0 22px rgba(135,206,235,.15);
+}
+.feature-card__icon{
+  flex-shrink:0;
+  width:40px;height:40px;
+  border-radius:9px;
+  display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(135deg,rgba(135,206,235,.14),rgba(135,206,235,.05));
+  border:1px solid rgba(135,206,235,.22);
+  color:#87ceeb;
+  transition:transform .3s ease,box-shadow .3s ease;
+}
+.feature-card:hover .feature-card__icon{
+  transform:scale(1.06);
+  box-shadow:0 0 16px rgba(135,206,235,.38);
+}
+.feature-card__icon svg{width:21px;height:21px}
+.feature-card__text h3{
+  font-family:'Playfair Display',serif;
+  font-size:.98rem;font-weight:700;
+  color:var(--cream);
+  margin:0 0 .12rem;
+  line-height:1.15;
+}
+.feature-card__text p{
+  font-size:.78rem;
+  color:var(--muted);
+  margin:0;
+  line-height:1.3;
+}
+/* tarjetas flotando con stagger */
+.hero__features .feature-card{
+  animation:featureFloat 5.5s ease-in-out infinite;
+  will-change:transform;
+}
+.hero__features .feature-card:nth-child(2){animation-delay:-1.4s}
+.hero__features .feature-card:nth-child(3){animation-delay:-2.8s}
+.hero__features .feature-card:nth-child(4){animation-delay:-4.2s}
+@keyframes featureFloat{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-4px)}
+}
+@media (max-width:820px){
+  .hero__features{min-width:0;grid-template-columns:1fr 1fr;gap:.5rem}
+}
+@media (max-width:480px){
+  .hero__features{grid-template-columns:1fr}
+}
+
+/* === Botón imagen (botoncarta / botonpedido) — con flotabilidad === */
+.btn-img{
+  display:inline-block;
+  width:140px;
+  height:84px;        /* misma altura para ambos botones */
+  line-height:0;
+  background:transparent;
+  border:none;
+  text-decoration:none;
+  cursor:pointer;
+  filter:drop-shadow(0 8px 14px rgba(0,0,0,.45)) drop-shadow(0 3px 6px rgba(0,0,0,.3));
+  transition:filter .25s ease;
+  animation:btnFloat 4.5s ease-in-out infinite;
+  will-change:transform;
+}
+.btn-img:nth-of-type(2){
+  animation-delay:-2.2s;  /* desfasados, no flotan en sincro */
+}
+.btn-img img{
+  width:100%;height:100%;display:block;
+  object-fit:contain;
+  pointer-events:none;
+  user-select:none;
+}
+@keyframes btnFloat{
+  0%,100%{ transform:translateY(0) rotate(0deg) }
+  50%    { transform:translateY(-6px) rotate(-.6deg) }
+}
+.btn-img:hover{
+  animation-play-state:paused;
+  transform:translateY(-5px) scale(1.05);
+  filter:
+    drop-shadow(0 16px 24px rgba(0,0,0,.55))
+    drop-shadow(0 5px 10px rgba(0,0,0,.35))
+    brightness(1.08) saturate(1.05);
+}
+.btn-img:active{
+  transform:translateY(-1px) scale(1.02);
+}
+
+/* === Botón EMPANADA REALISTA — media luna horneada con repulgue === */
+.btn-emp{
+  /* paleta editable por variante */
+  --emp-top: #e8b870;
+  --emp-mid: #c8943f;
+  --emp-bot: #6b4218;
+  --emp-edge: #4a2b10;
+  --emp-fg: #fff8e6;
+
+  position:relative;
+  display:inline-flex;align-items:flex-end;justify-content:center;
+  padding:1.6rem 2.6rem 1.1rem;
+  min-width:210px;
+  font-family:'Playfair Display',serif;
+  font-weight:700;font-size:1rem;letter-spacing:.02em;
+  color:var(--emp-fg);
+  text-shadow:0 1px 2px rgba(0,0,0,.55), 0 0 12px rgba(0,0,0,.3);
+  border:none;cursor:pointer;text-decoration:none;
+  isolation:isolate;
+
+  /* forma de empanada — media luna horneada */
+  border-radius:50% 50% 22% 22% / 80% 80% 28% 28%;
+
+  /* horneado realista: manchitas de cocción + brillo superior + gradiente base */
+  background:
+    radial-gradient(ellipse 18% 22% at 22% 38%, rgba(60,25,8,.42), transparent 60%),
+    radial-gradient(ellipse 14% 18% at 68% 48%, rgba(60,25,8,.38), transparent 60%),
+    radial-gradient(ellipse 12% 16% at 82% 70%, rgba(60,25,8,.30), transparent 60%),
+    radial-gradient(ellipse 15% 18% at 38% 75%, rgba(60,25,8,.28), transparent 60%),
+    radial-gradient(ellipse 90% 35% at 50% 18%, rgba(255,235,180,.45), transparent 75%),
+    linear-gradient(180deg, var(--emp-top) 0%, var(--emp-mid) 45%, var(--emp-bot) 100%);
+
+  /* profundidad y horno */
+  box-shadow:
+    inset 0 -10px 18px rgba(0,0,0,.45),
+    inset 0 10px 16px rgba(255,235,180,.32),
+    inset 0 0 0 1px rgba(0,0,0,.18),
+    0 14px 30px rgba(0,0,0,.5),
+    0 4px 10px rgba(0,0,0,.3);
+
+  transition:transform .2s ease, box-shadow .2s ease, filter .2s ease;
+}
+
+/* === repulgue — borde ondulado dorado simulando el sellado a mano === */
+.btn-emp::before{
+  content:"";
+  position:absolute;
+  top:-7px; left:6%; right:6%; height:18px;
+  background:
+    radial-gradient(circle 7px at 7px 7px, var(--emp-mid) 6px, transparent 6.5px) repeat-x,
+    radial-gradient(circle 7px at 7px 5px, var(--emp-top) 5px, transparent 5.5px) repeat-x;
+  background-size:14px 14px, 14px 14px;
+  background-position:0 0, 0 -2px;
+  filter:
+    drop-shadow(0 -1px 0 var(--emp-edge))
+    drop-shadow(0 -2px 4px rgba(0,0,0,.35))
+    drop-shadow(0 1px 0 rgba(255,235,180,.3));
+  pointer-events:none;
+  z-index:1;
+}
+
+/* sombra interior abajo simulando la curva tostada */
+.btn-emp::after{
+  content:"";
+  position:absolute;
+  left:8%;right:8%;bottom:6%;
+  height:30%;
+  background:radial-gradient(ellipse at center, rgba(50,20,5,.35), transparent 70%);
+  pointer-events:none;
+  z-index:0;
+}
+
+.btn-emp:hover{
+  transform:translateY(-3px) scale(1.02);
+  filter:brightness(1.07) saturate(1.1);
+  box-shadow:
+    inset 0 -10px 18px rgba(0,0,0,.5),
+    inset 0 10px 16px rgba(255,235,180,.38),
+    inset 0 0 0 1px rgba(0,0,0,.18),
+    0 20px 38px rgba(0,0,0,.55),
+    0 6px 12px rgba(0,0,0,.35);
+}
+.btn-emp:active{transform:translateY(0) scale(.99)}
+
+/* Ver carta — rojo Zami (empanada de carne picante) */
+.btn-emp--primary{
+  --emp-top:#e07a5f;
+  --emp-mid:#c0392b;
+  --emp-bot:#6b1d12;
+  --emp-edge:#4a0f08;
+}
+
+/* Hacer pedido — dorado salteño (empanada clásica horneada) */
+.btn-emp--ghost{
+  --emp-top:#e8c07a;
+  --emp-mid:#c89640;
+  --emp-bot:#6b4218;
+  --emp-edge:#3d2410;
+}
+
+/* el texto siempre por encima de las pseudo-capas */
+.btn-emp > * { position:relative; z-index:2; }
+.hero__brand{
+  /* mismo rojo borgoña del logo */
+  color:#a31f2b;
+  font-style:normal;
+  letter-spacing:.05em;
+  /* contorno negro sutil en los bordes de las letras */
+  -webkit-text-stroke:1.6px rgba(0,0,0,1);
+  paint-order:stroke fill;
+  text-shadow:
+    0 0 3px  rgba(163, 31, 43,.55),
+    0 0 8px  rgba(140, 18, 28,.38),
+    0 0 18px rgba(125, 15, 26,.22);
+  animation:zamiNeon 4s ease-in-out infinite;
+}
+@keyframes zamiNeon{
+  0%,100%{
+    text-shadow:
+      0 0 3px  rgba(163, 31, 43,.55),
+      0 0 8px  rgba(140, 18, 28,.38),
+      0 0 18px rgba(125, 15, 26,.22);
+  }
+  50%{
+    text-shadow:
+      0 0 3px  rgba(163, 31, 43,.65),
+      0 0 9px  rgba(140, 18, 28,.45),
+      0 0 22px rgba(125, 15, 26,.28);
+  }
+}
+
+/* "- Empanadas" en marrón cálido con neón propio + contorno negro en bordes de letras */
+.hero__dash{
+  color:#8b5a2b;
+  font-style:normal;
+  -webkit-text-stroke:1.6px rgba(0,0,0,1);
+  paint-order:stroke fill;
+  text-shadow:
+    0 0 3px  rgba(139, 90, 43,.55),
+    0 0 8px  rgba(125, 78, 30,.38),
+    0 0 18px rgba(110, 65, 22,.22);
+  animation:empNeon 4s ease-in-out infinite;
+}
+@keyframes empNeon{
+  0%,100%{
+    text-shadow:
+      0 0 3px  rgba(139, 90, 43,.55),
+      0 0 8px  rgba(125, 78, 30,.38),
+      0 0 18px rgba(110, 65, 22,.22);
+  }
+  50%{
+    text-shadow:
+      0 0 3px  rgba(155, 105, 55,.65),
+      0 0 9px  rgba(140, 90, 40,.45),
+      0 0 22px rgba(125, 78, 30,.28);
+  }
+}
+
+/* "hechas como en" en blanco */
+.hero__white{
+  color:#ffffff;
+  font-style:normal;
+}
+/* texto sobre la imagen — sombra para legibilidad */
+.hero h1{color:var(--cream);text-shadow:0 2px 14px rgba(0,0,0,.55)}
+.hero h1 em{color:#87ceeb;text-shadow:0 2px 14px rgba(135,206,235,.5), 0 0 22px rgba(135,206,235,.35)}
+.hero .eyebrow{color:var(--accent-2);text-shadow:0 1px 6px rgba(0,0,0,.6)}
+.hero__sub{color:var(--cream-soft);text-shadow:0 1px 8px rgba(0,0,0,.55)}
+.hero__sub{
+  max-width:535px;font-size:1rem;
+  color:var(--cream-soft);
+  margin:.9rem 0 1.45rem;
+  line-height:1.58;
+}
+.hero__cta{display:flex;gap:.8rem;flex-wrap:wrap}
+
+.btn{
+  display:inline-block;padding:.88rem 1.6rem;
+  border-radius:999px;font-weight:600;font-size:.95rem;
+  cursor:pointer;border:none;transition:all .2s;
+  font-family:inherit;
+}
+.btn--primary{
+  background:var(--accent);color:#fff;
+}
+.btn--primary:hover{background:#a82e22;transform:translateY(-2px)}
+.btn--ghost{
+  background:transparent;color:var(--cream);
+  border:1.5px solid var(--cream);
+}
+.btn--ghost:hover{background:var(--cream);color:var(--bg)}
+.btn--block{width:100%;display:block;margin-top:1rem}
+
+/* === CARRUSEL INFINITO === */
+.carousel-section{
+  flex:1 1 auto;
+  display:flex;flex-direction:column;justify-content:flex-start;
+  padding:1.4rem 0 2.2rem;
+  background:transparent;
+  overflow:hidden;
+  /* fade superior para que el carrusel entre suave desde la franja */
+  -webkit-mask-image:linear-gradient(180deg,transparent 0%,#000 18%,#000 100%);
+          mask-image:linear-gradient(180deg,transparent 0%,#000 18%,#000 100%);
+}
+.carousel-section__head{
+  text-align:center;
+  max-width:640px;margin:0 auto 1.25rem;
+  padding:0 1.4rem;
+}
+.carousel-section__head h2{font-size:clamp(1.25rem,2.1vw,1.75rem);margin:0}
+.carousel-section__head .eyebrow{font-size:.68rem;margin-bottom:.4rem}
+.carousel{
+  width:100%;
+  overflow:hidden;
+  -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 8%,#000 92%,transparent 100%);
+          mask-image:linear-gradient(90deg,transparent 0,#000 8%,#000 92%,transparent 100%);
+  position:relative;
+}
+.carousel__track{
+  display:flex;
+  gap:1.5rem;
+  width:max-content;
+  animation:slideX 45s linear infinite;
+}
+.carousel:hover .carousel__track{
+  animation-play-state:paused;
+}
+@keyframes slideX{
+  from{transform:translateX(0)}
+  to{transform:translateX(-50%)}
+}
+
+.cc{
+  flex:0 0 235px;
+  background:var(--bg-2);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  overflow:hidden;
+  display:flex;flex-direction:column;
+  transition:transform .25s,border-color .25s,box-shadow .25s;
+}
+.cc:hover{
+  transform:translateY(-6px);
+  border-color:var(--accent-2);
+  box-shadow:var(--shadow);
+}
+.cc__img{
+  aspect-ratio:5/4;
+  background:#0e0c0a center/cover no-repeat;
+  position:relative;
+}
+.cc__img::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,transparent 55%,rgba(0,0,0,.7));
+}
+.cc__body{padding:1.2rem 1.2rem;display:flex;flex-direction:column;gap:.65rem;flex:1}
+.cc__title{font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--cream);line-height:1.2}
+.cc__desc{color:var(--muted);font-size:.84rem;line-height:1.5;min-height:2.5em}
+.cc__foot{
+  margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:.5rem;
+}
+.cc__price{color:var(--accent-2);font-weight:600;font-size:.95rem}
+.cc__add{
+  background:var(--accent);color:#fff;border:none;cursor:pointer;
+  padding:.45rem .9rem;border-radius:999px;
+  font-size:.35rem;font-weight:600;font-family:inherit;
+  transition:all .15s;
+}
+.cc__add:hover{background:#a82e22;transform:translateY(-1px)}
+.cc--soon{opacity:.55;filter:grayscale(.7)}
+.cc--soon .cc__add{
+  background:transparent;color:var(--muted);
+  border:1.5px dashed var(--muted);cursor:not-allowed;
+}
+.cc--soon .cc__price{color:var(--muted)}
+
+/* === STRIP (transparente total, sin borders ni masks) === */
+.strip{
+  position:relative;
+  width:100%;
+  background:transparent;
+  border:none;
+  /* strip ahora va arriba de todo, sin reserva para nav */
+  padding:.5rem 0 .5rem;
+  overflow:hidden;
+  z-index:3;
+}
+/* el contenedor de textos ahora ES la línea celeste — se mueve con los textos adentro */
+.strip__track{
+  -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 5%,#000 95%,transparent 100%);
+          mask-image:linear-gradient(90deg,transparent 0,#000 5%,#000 95%,transparent 100%);
+  position:relative;
+  z-index:2;
+  background:rgba(135,206,235,.78);
+  padding:.42rem 0;
+  box-shadow:
+    0 0 0 1px rgba(135,206,235,.4),
+    0 4px 12px rgba(135,206,235,.15);
+}
+.strip__track{
+  display:flex;align-items:center;gap:0;
+  width:max-content;
+  white-space:nowrap;
+  animation:scroll 38s linear infinite;
+  padding:0;
+  will-change:transform;
+  backface-visibility:hidden;
+}
+/* item: texto sobre la línea celeste + círculo blanco al final como separador */
+.strip__item{
+  display:inline-flex;align-items:center;gap:1.2rem;
+  /* margin-right reemplaza el gap del track para que el loop sea matemáticamente perfecto */
+  margin-right:1.2rem;
+  font-size:.8rem;font-weight:500;
+  letter-spacing:.18em;
+  color:#0d2a3f;     /* navy oscuro para contraste sobre celeste */
+  line-height:1.4;
+  text-transform:uppercase;
+  border-radius:0;
+  box-shadow:none;text-shadow:none;
+}
+.strip__item::after{
+  content:"";
+  display:inline-block;
+  width:8px;height:8px;
+  background:#ffffff;
+  border-radius:50%;
+  box-shadow:0 0 0 1px rgba(13,42,63,.25);
+  flex-shrink:0;
+}
+.strip__txt{
+  display:inline-block;
+  text-decoration:none;
+}
+@keyframes scroll{
+  from{transform:translate3d(0,0,0)}
+  to{transform:translate3d(-33.3333%,0,0)}
+}
+
+/* === SECTIONS === */
+.section{
+  padding:6rem 1.4rem;
+  max-width:1200px;margin:0 auto;
+}
+.section--dark{
+  background:rgba(10,14,20,.55);
+  max-width:none;
+  margin:0;
+}
+.section--dark > *{
+  max-width:1200px;margin-left:auto;margin-right:auto;
+}
+.section__head{
+  text-align:center;
+  max-width:640px;margin:0 auto 3rem;
+}
+.lead{color:var(--cream-soft);margin-top:.8rem;font-size:1.05rem}
+
+/* === GRID SABORES === */
+.grid{
+  display:grid;
+  gap:1.6rem;
+}
+.grid--sabores{
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+}
+.grid--toppings{
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+}
+
+.card{
+  background:var(--bg-2);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  overflow:hidden;
+  transition:transform .25s,border-color .25s,box-shadow .25s;
+  display:flex;flex-direction:column;
+}
+.card:hover{
+  transform:translateY(-4px);
+  border-color:var(--accent-2);
+  box-shadow:var(--shadow);
+}
+.card__img{
+  aspect-ratio:4/3;
+  background:#0e0c0a center/cover no-repeat;
+  position:relative;
+}
+.card__img::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,transparent 50%,rgba(0,0,0,.55));
+}
+.card__body{padding:1.4rem;display:flex;flex-direction:column;gap:.7rem;flex:1}
+.card__title{font-family:'Playfair Display',serif;font-size:1.35rem;color:var(--cream)}
+.card__desc{color:var(--muted);font-size:.9rem;line-height:1.5}
+.card__price-row{
+  margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:.6rem;flex-wrap:wrap;
+}
+.card__prices{display:flex;flex-direction:column}
+.card__prices small{color:var(--muted);font-size:.72rem;text-transform:uppercase;letter-spacing:.1em}
+.card__prices strong{color:var(--accent-2);font-size:1.05rem;font-weight:600}
+
+.qty-actions{display:flex;gap:.4rem;flex-wrap:wrap}
+.qty-actions button{
+  background:transparent;color:var(--cream);
+  border:1.5px solid var(--line);
+  padding:.45rem .8rem;border-radius:8px;
+  cursor:pointer;font-size:.35rem;font-weight:600;font-family:inherit;
+  transition:all .15s;
+}
+.qty-actions button:hover{border-color:var(--accent);background:var(--accent);color:#fff}
+
+/* === CARTA: Sabores y Salsas (pestaña 2, estilo "deck") === */
+.carta-section{
+  position:relative;
+  margin-top:-2rem;
+  padding:.3rem 1.4rem 1.4rem;
+  background:transparent;
+  overflow:visible;
+}
+.carta-section__bg{
+  display:none;
+}
+.carta-section__head{
+  position:relative;z-index:2;
+  text-align:center;
+  max-width:720px;margin:0 auto .4rem;
+}
+
+/* === SABORES en arco semi-circular sutil === */
+.sabores-arc{
+  display:block;
+  width:100%;
+  max-width:520px;
+  height:auto;
+  margin:0 auto;
+}
+.sabores-arc__text{
+  font-family:'Playfair Display',serif;
+  font-weight:800;
+  font-size:60px;
+  letter-spacing:.18em;
+  filter:drop-shadow(0 2px 6px rgba(0,0,0,.5));
+}
+.sabores-arc__text tspan[fill="#87ceeb"]{
+  filter:drop-shadow(0 0 6px rgba(135,206,235,.6));
+}
+.sabores-arc__text tspan[fill="#ffffff"]{
+  filter:drop-shadow(0 0 4px rgba(255,255,255,.3));
+}
+@media (max-width:560px){
+  .sabores-arc{max-width:340px}
+  .sabores-arc__text{font-size:48px}
+}
+.carta-section__head .carta-amp{color:var(--accent-2);font-style:italic;font-weight:600}
+.carta-section__head .lead{max-width:560px;margin:.8rem auto 0;color:var(--cream-soft)}
+
+.carta-groups{
+  position:relative;z-index:2;
+  display:grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap:1.4rem;
+  max-width:1240px;margin:0 auto;
+  align-items:start;
+}
+@media (max-width:920px){
+  .carta-groups{grid-template-columns:1fr;gap:3rem}
+}
+
+.carta-group__title{
+  font-family:'Playfair Display',serif;
+  font-size:1.1rem;text-align:center;
+  color:var(--cream);
+  margin-bottom:.8rem;
+  letter-spacing:.04em;
+  position:relative;
+}
+.carta-group__title::after{
+  content:"";display:block;
+  width:40px;height:2px;
+  background:var(--accent-2);
+  margin:.35rem auto 0;
+  border-radius:2px;
+}
+
+.carta-divider{
+  width:1px;
+  background:linear-gradient(180deg,transparent,rgba(244,234,215,.22),transparent);
+  align-self:stretch;
+}
+@media (max-width:920px){
+  .carta-divider{
+    width:60%;height:1px;justify-self:center;
+    background:linear-gradient(90deg,transparent,rgba(244,234,215,.22),transparent);
+  }
+}
+
+/* === DECK NUEVO: 3 cartas empanadas horizontales separadas === */
+.empanadas-deck{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:1.4rem;
+  max-width:1100px;
+  margin:0 auto;
+  padding:0 1rem;
+}
+@media (max-width:820px){
+  .empanadas-deck{grid-template-columns:1fr;gap:1.6rem}
+}
+
+.emp-card{
+  position:relative;
+  display:flex;flex-direction:column;
+  height:100%;            /* todas las cartas mismo alto (el del grid stretch) */
+  background:transparent;
+  border-radius:14px;
+  overflow:visible;
+  transition:filter .3s ease;
+  animation:empFloat 5.5s ease-in-out infinite;
+  will-change:transform;
+}
+.emp-card[data-pos="1"]{ animation-delay:-1.8s; }
+.emp-card[data-pos="2"]{ animation-delay:-3.6s; }
+.emp-card:hover{
+  animation-play-state:paused;
+  filter:brightness(1.04);
+}
+@keyframes empFloat{
+  0%,100%{ transform:translateY(0) rotate(0deg) }
+  50%    { transform:translateY(-7px) rotate(-.4deg) }
+}
+
+.emp-card__img{
+  position:relative;
+  border-radius:0;
+  overflow:visible;
+  box-shadow:none;
+  background:transparent;
+  perspective:1200px;
+  aspect-ratio:3/2;   /* default: 1.5, matchea las empanadas */
+}
+/* === Aspect-ratio individual por sabor, matcheando la imagen de ingredientes === */
+.emp-card[data-flavor="carne"]  .emp-card__img{ aspect-ratio:354/223; }  /* 1.59 */
+.emp-card[data-flavor="queso"]  .emp-card__img{ aspect-ratio:354/214; }  /* 1.65 */
+.emp-card[data-flavor="humita"] .emp-card__img{ aspect-ratio:354/188; }  /* 1.88 */
+.emp-card__img img{
+  display:block;
+  width:100%;height:100%;
+}
+.emp-card__face--front{
+  background:transparent;
+  border-radius:0;
+  overflow:visible;
+}
+.emp-card__face--front img{
+  object-fit:contain;
+  filter:drop-shadow(0 14px 18px rgba(0,0,0,.45)) drop-shadow(0 4px 8px rgba(0,0,0,.35));
+}
+.emp-card__face--back{
+  border-radius:0;
+  overflow:visible;
+  background:transparent;
+  display:flex;align-items:center;justify-content:center;
+}
+.emp-card__face--back img{
+  width:100%;
+  height:auto;            /* respeta la proporción natural de la imagen */
+  max-height:100%;
+  object-fit:contain;
+  border-radius:14px;     /* solo la imagen tiene bordes redondeados */
+  display:block;
+}
+
+/* === Flip 3D: cara frontal (empanada) ↔ trasera (ingredientes) === */
+.emp-card__flip{
+  position:relative;
+  width:100%;height:100%;
+  transform-style:preserve-3d;
+  transition:transform .7s cubic-bezier(.45,.05,.25,1);
+}
+.emp-card:hover .emp-card__flip{
+  transform:rotateY(180deg);
+}
+.emp-card__face{
+  position:absolute;
+  inset:0;
+  border-radius:14px;
+  overflow:hidden;
+  backface-visibility:hidden;
+  -webkit-backface-visibility:hidden;
+}
+.emp-card__face--back{
+  transform:rotateY(180deg);
+  background:#0f0a08;
+}
+.emp-card__face--back img{
+  width:100%;height:100%;
+  object-fit:cover;
+}
+/* el vapor debe poder escaparse aunque la cara frontal tenga overflow:hidden */
+.emp-card__face--front{ overflow:visible; }
+.emp-card__face--front > img{ border-radius:14px; }
+
+/* === Vapor continuo saliendo del borde superior de la empanada === */
+.emp-card__steam{
+  position:absolute;
+  /* origen del vapor en la parte superior de la empanada */
+  top:0;left:50%;
+  transform:translateX(-50%);
+  width:90px;height:160px;
+  pointer-events:none;
+  z-index:3;
+  filter:blur(9px);
+  mix-blend-mode:screen;
+}
+.emp-card__steam span{
+  position:absolute;
+  left:50%;bottom:0;
+  width:30px;height:55px;
+  background:radial-gradient(ellipse at 50% 50%,
+    rgba(255,255,255,.85) 0%,
+    rgba(255,255,255,.45) 50%,
+    rgba(255,255,255,0) 85%);
+  border-radius:50% / 60%;
+  opacity:0;
+  animation:steamRise 5s ease-out infinite;
+  transform-origin:center bottom;
+}
+.emp-card__steam span:nth-child(1){ animation-delay:0s;   --sway:-10px; --scaleX:1;   }
+.emp-card__steam span:nth-child(2){ animation-delay:1s;   --sway:8px;   --scaleX:.85; }
+.emp-card__steam span:nth-child(3){ animation-delay:2s;   --sway:-6px;  --scaleX:1.1; }
+.emp-card__steam span:nth-child(4){ animation-delay:3s;   --sway:11px;  --scaleX:.95; }
+.emp-card__steam span:nth-child(5){ animation-delay:4s;   --sway:-4px;  --scaleX:.9;  }
+
+/* el vapor crece en intensidad a medida que sube */
+@keyframes steamRise{
+  0%{
+    transform:translate(-50%,0) scale(var(--scaleX,1), .4);
+    opacity:0;
+  }
+  20%{
+    opacity:.12;
+    transform:translate(calc(-50% + calc(var(--sway,0) / 4)),-30px) scale(var(--scaleX,1), .9);
+  }
+  60%{
+    opacity:.36;
+    transform:translate(calc(-50% + calc(var(--sway,0) / 2)),-90px) scale(calc(var(--scaleX,1) * 1.3), 1.6);
+  }
+  90%{
+    opacity:.51;
+    transform:translate(calc(-50% + calc(var(--sway,0) * .8)),-140px) scale(calc(var(--scaleX,1) * 1.7), 2.1);
+  }
+  100%{
+    transform:translate(calc(-50% + var(--sway,0)),-160px) scale(calc(var(--scaleX,1) * 1.9), 2.4);
+    opacity:0;
+  }
+}
+.emp-card__img img{
+  width:100%;height:auto;display:block;
+}
+
+.emp-card__body{
+  padding:.7rem .35rem 0;
+  display:flex;flex-direction:column;gap:.4rem;
+  text-align:center;
+  flex:1;                     /* ocupa todo el alto sobrante de la carta */
+  justify-content:flex-end;   /* empuja precio + botones al pie → alineados entre cartas */
+}
+.emp-card__name{
+  font-family:'Playfair Display',serif;
+  font-size:1.4rem;
+  font-weight:700;
+  color:var(--accent-2);
+  margin:0 0 .2rem;
+  line-height:1.15;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  text-shadow:0 1px 4px rgba(0,0,0,.55);
+}
+.emp-card__price{
+  margin-top:0;
+  padding-top:0;
+  border-top:none;
+}
+.emp-card__label{
+  display:block;
+  font-size:.58rem;font-weight:700;
+  text-transform:uppercase;letter-spacing:.2em;
+  color:var(--accent-2);
+  margin-bottom:.1rem;
+}
+.emp-card__price strong{
+  font-family:'Playfair Display',serif;
+  font-size:.95rem;color:var(--cream);
+  letter-spacing:.02em;
+}
+.emp-card__actions{
+  display:flex;gap:.35rem;margin-top:.35rem;
+}
+.emp-card__actions button{
+  flex:1;
+  background:var(--accent);color:#fff;
+  border:none;cursor:pointer;
+  padding:.4rem .3rem;border-radius:8px;
+  font-family:inherit;font-size:.68rem;font-weight:600;
+  letter-spacing:.03em;
+  transition:background .15s, transform .15s;
+}
+.emp-card__actions button:hover{
+  background:#a82e22;transform:translateY(-1px);
+}
+
+/* === Deck en abanico (fan layout) === */
+.carta-deck{
+  position:relative;
+  display:flex;justify-content:center;align-items:flex-start;
+  gap:.5rem;
+  padding-top:42px; /* espacio para la ilustración que sobresale */
+  min-height:auto;
+}
+
+/* === Carta individual estilo "naipe" === */
+.carta-card{
+  position:relative;
+  flex:0 1 170px;
+  display:flex;flex-direction:column;
+  background:linear-gradient(180deg,#ffffff 0%,#f7eed7 100%);
+  border-radius:14px;
+  padding:60px .75rem .8rem; /* padding-top grande para acomodar el flotante */
+  color:#3a2618;
+  box-shadow:
+    0 10px 18px rgba(0,0,0,.32),
+    0 3px 6px rgba(0,0,0,.18),
+    inset 0 0 0 1px rgba(255,255,255,.85);
+  transition:transform .35s ease, box-shadow .35s ease, z-index 0s linear .35s;
+}
+/* abanico: laterales rotadas, central recta y prominente */
+.carta-deck .carta-card[data-pos="0"]{
+  transform:translateX(28px) translateY(28px) rotate(-9deg);
+  z-index:1;
+}
+.carta-deck .carta-card[data-pos="1"]{
+  transform:translateY(-8px) scale(1.04);
+  z-index:3;
+}
+.carta-deck .carta-card[data-pos="2"]{
+  transform:translateX(-28px) translateY(28px) rotate(9deg);
+  z-index:1;
+}
+.carta-card:hover{
+  transform:translateY(-22px) scale(1.06) rotate(0)!important;
+  z-index:10;
+  transition:transform .35s ease, box-shadow .35s ease, z-index 0s;
+  box-shadow:
+    0 34px 46px rgba(0,0,0,.65),
+    0 10px 18px rgba(0,0,0,.4),
+    inset 0 0 0 1px rgba(255,255,255,.95);
+}
+
+/* === ilustración flotante (empanada / frasco) === */
+.carta-card__floater{
+  position:absolute;
+  top:-32px;left:0;right:0;
+  display:flex;justify-content:center;
+  pointer-events:none;
+}
+.carta-card__floater svg{
+  width:75%;height:auto;
+  max-width:115px;
+  filter:
+    drop-shadow(0 10px 10px rgba(0,0,0,.4))
+    drop-shadow(0 3px 5px rgba(0,0,0,.25));
+  transition:transform .35s ease;
+}
+.carta-card:hover .carta-card__floater svg{
+  transform:translateY(-6px) scale(1.04) rotate(-2deg);
+}
+.salsa-svg{max-width:80px!important}
+
+/* === contenido del cuerpo de la carta === */
+.carta-card__body{display:flex;flex-direction:column;gap:.4rem;flex:1}
+.carta-card__title{
+  font-family:'Playfair Display',serif;
+  font-size:.92rem;font-weight:700;
+  color:#3a2618;line-height:1.1;
+  margin:0;text-align:center;
+}
+.carta-card__desc{
+  font-size:.65rem;line-height:1.3;
+  color:#6b5240;
+  margin:0;text-align:center;
+  display:-webkit-box;
+  -webkit-line-clamp:2;-webkit-box-orient:vertical;
+  overflow:hidden;
+  min-height:auto;
+}
+.carta-card__price{
+  margin-top:.4rem;padding-top:.4rem;
+  border-top:1px dashed rgba(58,38,24,.30);
+  text-align:center;
+}
+.carta-card__label{
+  display:block;
+  font-size:.55rem;font-weight:700;
+  text-transform:uppercase;letter-spacing:.2em;
+  color:#8a6a4a;
+  margin-bottom:.15rem;
+}
+.carta-card__price strong{
+  font-family:'Playfair Display',serif;
+  font-size:.88rem;color:var(--accent-2);
+  letter-spacing:.02em;
+}
+.carta-card__actions{
+  display:flex;gap:.3rem;margin-top:.45rem;
+}
+.carta-card__actions button{
+  flex:1;min-width:0;
+  background:var(--accent);color:#fff;
+  border:none;cursor:pointer;
+  padding:.38rem .35rem;border-radius:8px;
+  font-family:inherit;font-size:.65rem;font-weight:600;
+  letter-spacing:.02em;
+  transition:background .15s, transform .15s;
+}
+.carta-card__actions button:hover{
+  background:#a82e22;transform:translateY(-1px);
+}
+
+/* === Mobile === */
+@media (max-width:620px){
+  .carta-deck{
+    flex-wrap:wrap;
+    gap:3rem 1rem;
+    padding-top:60px;
+  }
+  .carta-deck .carta-card[data-pos="0"],
+  .carta-deck .carta-card[data-pos="1"],
+  .carta-deck .carta-card[data-pos="2"]{
+    transform:none;
+    flex:0 1 calc(50% - .5rem);
+  }
+}
+
+/* === ABOUT === */
+.about{
+  display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:stretch;
+}
+@media (max-width:820px){.about{grid-template-columns:1fr}}
+.about__img{
+  display:flex;align-items:center;justify-content:center;
+}
+.about__img img,
+.about__img video{
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  width:auto;
+  max-width:100%;
+  height:auto;
+  max-height:680px;
+  object-fit:contain;
+  background:#0a0a0a;
+}
+.about__text{
+  display:flex;flex-direction:column;
+  justify-content:space-between;   /* distribuye verticalmente para igualar el alto de la imagen */
+  align-self:stretch;
+  padding:.5rem 0;
+  gap:.4rem;
+}
+.about__text > * { margin:0; }
+.about__text h2 em{
+  color:#87ceeb;
+  font-style:italic;
+  text-shadow:0 2px 14px rgba(135,206,235,.5), 0 0 22px rgba(135,206,235,.35);
+}
+.about__text p{
+  color:var(--cream-soft);
+  line-height:1.7;
+}
+.checks{list-style:none;margin:0;display:flex;flex-direction:column;gap:.2rem}
+.checks li{
+  padding:.4rem 0 .4rem 1.8rem;position:relative;
+  color:var(--cream-soft);
+}
+.checks li::before{
+  content:"✓";position:absolute;left:0;top:.4rem;
+  color:var(--accent-2);
+  font-weight:700;
+  font-size:1rem;
+}
+
+/* === CONTACTO === (legacy, oculto) */
+.contacto__cards{display:none}
+
+/* === PEDIDOS — sección call-to-action con 4 cards === */
+.pedidos-section{
+  position:relative;
+  padding:5rem 1.4rem;
+  background:transparent;
+  text-align:center;
+}
+.pedidos-section__head{
+  max-width:720px;margin:0 auto 3rem;
+}
+.pedidos-section__head h2{
+  font-size:clamp(1.8rem,3.5vw,2.8rem);
+  margin:0;
+}
+.pedidos-section__head h2 em{
+  color:#87ceeb;font-style:italic;
+  text-shadow:0 2px 14px rgba(135,206,235,.5),0 0 22px rgba(135,206,235,.35);
+}
+.pedidos-section__head .lead{
+  font-size:.95rem;margin-top:.6rem;color:var(--cream-soft);
+}
+
+.pedidos-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:1.4rem;
+  max-width:1240px;margin:0 auto;
+}
+@media (max-width:920px){.pedidos-grid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:560px){.pedidos-grid{grid-template-columns:1fr}}
+
+.pedido-card{
+  position:relative;
+  display:flex;flex-direction:column;align-items:center;
+  text-align:center;
+  padding:2rem 1.3rem 1.6rem;
+  border-radius:18px;
+  background:linear-gradient(180deg,rgba(20,15,12,.78) 0%,rgba(14,10,8,.85) 100%);
+  border:1px solid rgba(244,234,215,.08);
+  color:var(--cream);
+  text-decoration:none;
+  overflow:hidden;
+  transition:transform .35s ease,border-color .35s ease,box-shadow .35s ease;
+  cursor:pointer;
+}
+.pedido-card::before{
+  content:"";position:absolute;inset:0;
+  background:radial-gradient(circle at 50% 0%,rgba(135,206,235,.18),transparent 60%);
+  opacity:0;transition:opacity .4s ease;
+  pointer-events:none;
+}
+.pedido-card:hover{
+  transform:translateY(-8px);
+  border-color:rgba(135,206,235,.45);
+  box-shadow:
+    0 20px 40px rgba(0,0,0,.5),
+    0 0 30px rgba(135,206,235,.25),
+    inset 0 1px 0 rgba(255,255,255,.06);
+}
+.pedido-card:hover::before{opacity:1}
+
+.pedido-card__icon{
+  width:64px;height:64px;
+  display:flex;align-items:center;justify-content:center;
+  color:var(--accent-2);
+  margin-bottom:1.1rem;
+  transition:transform .35s ease,color .35s ease,filter .35s ease;
+}
+.pedido-card:hover .pedido-card__icon{
+  color:#87ceeb;
+  transform:scale(1.1) translateY(-2px);
+  filter:drop-shadow(0 4px 12px rgba(135,206,235,.4));
+}
+.pedido-card__icon svg{width:100%;height:100%}
+
+.pedido-card__title{
+  font-family:'Playfair Display',serif;
+  font-size:1.15rem;font-weight:700;
+  color:var(--cream);
+  margin:0 0 .55rem;
+  line-height:1.2;
+}
+.pedido-card__desc{
+  font-size:.82rem;line-height:1.5;
+  color:var(--cream-soft);
+  margin:0 0 1.3rem;
+  flex:1;
+}
+.pedido-card__cta{
+  display:inline-block;
+  padding:.55rem 1.1rem;
+  border:1.5px solid var(--accent-2);
+  color:var(--accent-2);
+  border-radius:999px;
+  font-size:.8rem;font-weight:600;
+  text-transform:uppercase;letter-spacing:.1em;
+  transition:background .25s ease,color .25s ease,border-color .25s ease;
+}
+.pedido-card:hover .pedido-card__cta{
+  background:#87ceeb;
+  color:#0d2a3f;
+  border-color:#87ceeb;
+}
+
+/* Info extra abajo */
+.pedidos-extra{
+  display:flex;justify-content:center;align-items:center;
+  flex-wrap:wrap;gap:1.6rem;
+  margin:3rem auto 0;
+  max-width:1000px;
+  font-size:.85rem;
+  color:var(--cream-soft);
+}
+.pedidos-extra a{
+  color:var(--accent-2);
+  text-decoration:none;
+  transition:color .2s;
+}
+.pedidos-extra a:hover{color:#87ceeb}
+
+/* === FOOTER === */
+.foot{
+  text-align:center;padding:2rem 1rem;
+  color:var(--muted);font-size:.85rem;
+  border-top:1px solid var(--line);
+}
+
+/* === CART === */
+.cart{
+  position:fixed;inset:0;z-index:100;
+  pointer-events:none;
+}
+.cart[aria-hidden="false"]{pointer-events:auto}
+.cart__overlay{
+  position:absolute;inset:0;
+  background:rgba(0,0,0,.6);
+  opacity:0;transition:opacity .25s;
+}
+.cart[aria-hidden="false"] .cart__overlay{opacity:1}
+.cart__panel{
+  position:absolute;top:0;right:0;bottom:0;
+  width:min(420px,100%);
+  background:var(--bg-2);
+  border-left:1px solid var(--line);
+  padding:1.6rem;
+  display:flex;flex-direction:column;
+  transform:translateX(100%);transition:transform .3s;
+  overflow-y:auto;
+}
+.cart[aria-hidden="false"] .cart__panel{transform:translateX(0)}
+.cart__head{
+  display:flex;align-items:center;justify-content:space-between;
+  padding-bottom:1rem;border-bottom:1px solid var(--line);margin-bottom:1rem;
+}
+.cart__close{
+  background:none;border:none;color:var(--cream);
+  font-size:1.8rem;cursor:pointer;line-height:1;
+}
+.cart__list{list-style:none;flex:1}
+.cart__item{
+  display:flex;justify-content:space-between;align-items:flex-start;
+  padding:.9rem 0;border-bottom:1px dashed var(--line);gap:1rem;
+}
+.cart__item-name{font-weight:600;font-size:.95rem}
+.cart__item-meta{font-size:.35rem;color:var(--muted);margin-top:.2rem}
+.cart__item-price{color:var(--accent-2);font-weight:600;font-size:.95rem;white-space:nowrap}
+.cart__item-remove{
+  background:none;border:none;color:var(--muted);cursor:pointer;
+  font-size:.8rem;margin-top:.3rem;padding:0;
+}
+.cart__item-remove:hover{color:var(--accent)}
+.cart__empty{color:var(--muted);text-align:center;padding:2rem 0;font-size:.9rem}
+.cart__total{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:1.2rem 0;border-top:1px solid var(--line);margin-top:1rem;
+  font-size:1.1rem;
+}
+.cart__total strong{color:var(--accent-2);font-size:1.4rem;font-family:'Playfair Display',serif}
+.cart__note{font-size:.75rem;color:var(--muted);text-align:center;margin-top:.8rem}
