@@ -79,6 +79,24 @@
 </head>
 <body>
 
+  <!-- DEBUG: indicador de viewport (solo temporal mientras arreglamos mobile) -->
+  <div id="vp-debug" style="position:fixed;top:0;left:0;z-index:99999;background:#000;color:#0f0;padding:6px 10px;font:bold 14px monospace;border:2px solid #0f0">
+    <span id="vp-w">…</span>px · <span id="vp-mq">…</span>
+  </div>
+  <script>
+    (function(){
+      function upd(){
+        var w = window.innerWidth;
+        document.getElementById('vp-w').textContent = w;
+        document.getElementById('vp-mq').textContent =
+          (window.matchMedia('(max-width:820px)').matches ? 'MOBILE-OK' : 'DESKTOP') +
+          ' (DPR ' + window.devicePixelRatio + ')';
+      }
+      upd();
+      window.addEventListener('resize', upd);
+    })();
+  </script>
+
   <!-- Audio de bienvenida (video invisible para extraer audio) -->
   <video id="introAudio" class="intro-audio" src="img/audio.mp4" autoplay muted playsinline preload="auto" loop aria-hidden="true"></video>
 
