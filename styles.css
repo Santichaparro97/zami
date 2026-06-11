@@ -498,7 +498,10 @@ h3{font-size:1.15rem;letter-spacing:.2px}
   display:grid !important;
   grid-template-columns:1fr 1fr;
   gap:.5rem;
-  min-width:380px;
+  min-width:0;
+}
+@media (min-width:769px){
+  .hero__features{min-width:380px}
 }
 .feature-card{
   display:flex;align-items:center;gap:.8rem;
@@ -2074,4 +2077,84 @@ h3{font-size:1.15rem;letter-spacing:.2px}
   .hero__features{ grid-template-columns:1fr !important; max-width:300px !important; }
   .pedidos-grid{ grid-template-columns:1fr !important; }
   .empanadas-deck{ padding:0 .2rem !important; }
+}
+
+/* =====================================================================
+   FIX iPhone Chrome — final, garantiza que NADA desborde y todo encaje
+   ===================================================================== */
+@media (max-width:768px){
+  /* anular el min-width que causaba el overflow */
+  .hero__features{ min-width:0 !important; }
+
+  /* hero: el contenedor del título nunca puede ser más ancho que la pantalla */
+  .hero__content{ width:100% !important; max-width:100% !important; }
+  .hero__heading{ width:100% !important; max-width:100% !important; }
+  .hero__heading > div{ width:100% !important; max-width:100% !important; }
+  .hero__text{ max-width:100% !important; }
+
+  /* título: si no entra, baja un poco más */
+  .hero h1{
+    word-wrap:break-word !important;
+    hyphens:auto !important;
+    padding:0 .25rem !important;
+  }
+
+  /* las 4 tarjetas de beneficios siempre debajo del título, nunca encima */
+  .hero__features{
+    order:2 !important;
+    margin:1rem auto 0 !important;
+    width:min(100%, 480px) !important;
+    grid-template-columns:1fr 1fr !important;
+    gap:.5rem !important;
+  }
+  .hero__text{ order:1 !important; width:100% !important; }
+
+  /* feature-card no puede tener su propio min-width que rompe */
+  .feature-card{ min-width:0 !important; width:auto !important; }
+
+  /* TOPNAV: que entren los 3 links con respiro */
+  .topnav{
+    justify-content:space-around !important;
+    gap:.4rem !important;
+    padding:.6rem .5rem .4rem !important;
+  }
+  .topnav a{
+    font-size:.7rem !important;
+    letter-spacing:.1em !important;
+    padding:.6rem .4rem !important;
+    min-height:44px !important;
+  }
+
+  /* empanadas: 1 sola columna ANCHO COMPLETO sin overflow */
+  .empanadas-deck{
+    grid-template-columns:1fr !important;
+    width:100% !important;
+    max-width:420px !important;
+    padding:0 .8rem !important;
+    margin:0 auto !important;
+  }
+  .emp-card{
+    width:100% !important;
+    max-width:100% !important;
+  }
+  .emp-card__img{ width:100% !important; }
+
+  /* pedidos: que no se desborden los 4 cards */
+  .pedidos-grid{
+    width:100% !important;
+    max-width:100% !important;
+    padding:0 !important;
+  }
+  .pedido-card{ min-width:0 !important; }
+}
+
+/* Pantallas chicas: iPhone Mini / SE (≤390px) */
+@media (max-width:390px){
+  .topnav{ gap:.3rem !important; padding:.5rem .3rem .3rem !important; }
+  .topnav a{ font-size:.66rem !important; padding:.55rem .3rem !important; letter-spacing:.08em !important; }
+  .hero{ padding:1rem .8rem 1.4rem !important; }
+  .hero__features{ grid-template-columns:1fr !important; max-width:280px !important; }
+  .feature-card{ padding:.55rem .7rem !important; }
+  .pedidos-grid{ grid-template-columns:1fr !important; max-width:300px !important; margin:0 auto !important; }
+  .empanadas-deck{ max-width:100% !important; padding:0 .5rem !important; }
 }
