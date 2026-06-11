@@ -2507,3 +2507,23 @@ h3{font-size:1.15rem;letter-spacing:.2px}
     text-align: left !important;
   }
 }
+
+/* =====================================================================
+   FINAL OVERRIDE: garantizar que la imagen Nosotros se oculte en mobile
+   ===================================================================== */
+@media (max-width: 768px) {
+  .about__img,
+  .about__img img,
+  .about__img video {
+    display: none !important;
+    visibility: hidden !important;
+    width: 0 !important;
+    height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  .about {
+    grid-template-columns: 1fr !important;
+    display: block !important;
+  }
+}
