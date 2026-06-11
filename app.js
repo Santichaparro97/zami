@@ -434,3 +434,16 @@ function renderCarousel() {
 
 renderSabores();
 renderCart();
+
+// === Tap-to-flip en empanadas para mobile ===
+// (en desktop sigue funcionando con :hover; en mobile el tap activa is-flipped)
+document.addEventListener("click", (e) => {
+  const card = e.target.closest(".emp-card");
+  if (!card) return;
+  // No flip si el click fue en un botón de acción (+ Media / + Docena)
+  if (e.target.closest(".emp-card__actions button")) return;
+  // Solo en mobile (≤820px)
+  if (window.matchMedia("(max-width: 820px)").matches) {
+    card.classList.toggle("is-flipped");
+  }
+});
