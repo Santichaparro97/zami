@@ -29,3 +29,5 @@ server.ps1
 # OS / env
 .env
 .env.local
+
+.vercel
