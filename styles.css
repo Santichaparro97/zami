@@ -1694,3 +1694,184 @@ h3{font-size:1.15rem;letter-spacing:.2px}
 }
 .cart__total strong{color:var(--accent-2);font-size:1.4rem;font-family:'Playfair Display',serif}
 .cart__note{font-size:.75rem;color:var(--muted);text-align:center;margin-top:.8rem}
+
+
+/* =====================================================================
+   MOBILE OVERRIDE — pasada final de mobile, va al fondo para ganar cascade
+   ===================================================================== */
+@media (max-width:820px){
+
+  /* ===== HERO ===== */
+  .hero{
+    padding:1rem 1rem 1.4rem !important;
+    overflow:visible !important;
+    display:block !important;
+  }
+  .hero__content{
+    display:flex !important;
+    flex-direction:column !important;
+    gap:1.4rem !important;
+    align-items:center !important;
+    justify-content:flex-start !important;
+    text-align:center !important;
+    max-width:100% !important;
+    padding:0 !important;
+  }
+  .hero__text{
+    display:block !important;
+    width:100% !important;
+    text-align:center !important;
+    flex:none !important;
+  }
+  .hero__heading{
+    display:block !important;
+    text-align:center !important;
+    margin-bottom:.4rem !important;
+  }
+  .hero__heading > div{
+    position:static !important;
+    display:block !important;
+    text-align:center !important;
+  }
+  .hero__logo{
+    position:static !important;
+    transform:none !important;
+    width:80px !important;
+    height:80px !important;
+    margin:0 auto 1rem !important;
+    right:auto !important;
+    top:auto !important;
+    display:block !important;
+    animation:none !important;
+  }
+  .hero h1{
+    font-size:clamp(1.6rem,7vw,2.4rem) !important;
+    line-height:1.18 !important;
+    text-align:center !important;
+  }
+  .hero__sub{
+    text-align:center !important;
+    margin:.7rem auto 0 !important;
+    max-width:520px !important;
+    font-size:.92rem !important;
+  }
+  .hero .eyebrow{ text-align:center !important; }
+  .hero__features{
+    margin:0 !important;
+    width:100% !important;
+    max-width:520px !important;
+    display:grid !important;
+    grid-template-columns:1fr 1fr !important;
+    gap:.5rem !important;
+    flex:none !important;
+  }
+  .feature-card{ padding:.6rem .8rem !important; }
+  .feature-card__icon{ width:34px !important; height:34px !important; }
+  .feature-card__icon svg{ width:18px !important; height:18px !important; }
+  .feature-card__text h3{ font-size:.82rem !important; }
+  .feature-card__text p{ font-size:.66rem !important; }
+
+  /* ===== TOPNAV ===== */
+  .topnav{
+    gap:1.4rem !important;
+    padding:.7rem .8rem .4rem !important;
+  }
+  .topnav a{
+    font-size:.72rem !important;
+    letter-spacing:.14em !important;
+    padding:.3rem .15rem !important;
+  }
+
+  /* ===== STRIP (textos en movimiento) ===== */
+  .strip{ padding:.4rem 0 !important; }
+  .strip__item{
+    font-size:.66rem !important;
+    margin-right:.85rem !important;
+    gap:.85rem !important;
+  }
+  .strip__item::after{ width:6px !important; height:6px !important; }
+  .strip__track{ padding:.3rem 0 !important; }
+
+  /* ===== CARTA — 3 empanadas apiladas ===== */
+  .carta-section{
+    margin-top:1rem !important;
+    padding:.5rem 1rem 2rem !important;
+  }
+  .carta-section__head{ margin-bottom:.4rem !important; }
+  .sabores-arc{ max-width:280px !important; }
+  .sabores-arc__text{ font-size:46px !important; }
+  .empanadas-deck{
+    grid-template-columns:1fr !important;
+    gap:2.2rem !important;
+    max-width:420px !important;
+    padding:0 1rem !important;
+  }
+  .emp-card{ max-width:380px !important; margin:0 auto !important; width:100% !important; }
+  .emp-card__name{ font-size:1.15rem !important; }
+  .emp-card__price strong{ font-size:1rem !important; }
+  .emp-card__actions button{ padding:.55rem .4rem !important; font-size:.78rem !important; }
+
+  /* ===== NOSOTROS ===== */
+  .about{
+    grid-template-columns:1fr !important;
+    gap:1.8rem !important;
+    text-align:center !important;
+  }
+  .about__img img{
+    max-height:380px !important;
+    margin:0 auto !important;
+  }
+  .about__text{
+    align-items:center !important;
+    text-align:center !important;
+    justify-content:flex-start !important;
+    gap:.8rem !important;
+  }
+  .about__text h2{ font-size:1.6rem !important; }
+  .about__text p{ font-size:.92rem !important; }
+  .checks{
+    display:inline-flex !important;
+    flex-direction:column !important;
+    text-align:left !important;
+    margin:0 auto !important;
+  }
+
+  /* ===== PEDIDOS ===== */
+  .pedidos-section{ padding:3rem 1rem !important; }
+  .pedidos-grid{
+    grid-template-columns:1fr 1fr !important;
+    gap:.9rem !important;
+  }
+  .pedido-card{ padding:1.2rem .9rem 1rem !important; }
+  .pedido-card__icon{ width:48px !important; height:48px !important; margin-bottom:.7rem !important; }
+  .pedido-card__title{ font-size:1rem !important; }
+  .pedido-card__desc{ font-size:.74rem !important; margin-bottom:.9rem !important; }
+  .pedido-card__cta{ font-size:.7rem !important; padding:.45rem .8rem !important; }
+  .pedidos-extra{
+    flex-direction:column !important;
+    gap:.7rem !important;
+    font-size:.78rem !important;
+  }
+
+  /* ===== CART FLOTANTE ===== */
+  .cart-fab{
+    width:48px !important; height:48px !important;
+    bottom:1rem !important; right:1rem !important;
+    font-size:.9rem !important;
+  }
+  .cart-fab span{ width:18px !important; height:18px !important; font-size:.6rem !important; }
+
+  /* ===== INTRO SPLASH ===== */
+  .intro__word{ font-size:clamp(1.5rem,8vw,2.4rem) !important; }
+  .intro__inner{ width:min(240px,72vw) !important; }
+  .intro__cta{ font-size:.72rem !important; letter-spacing:.28em !important; }
+  .intro{ gap:.8rem !important; }
+}
+
+@media (max-width:480px){
+  .pedidos-grid{ grid-template-columns:1fr !important; }
+  .hero__features{ grid-template-columns:1fr !important; max-width:340px !important; }
+  .hero h1{ font-size:clamp(1.5rem,8vw,2.1rem) !important; }
+  .feature-card__text h3{ font-size:.88rem !important; }
+  .feature-card__text p{ font-size:.7rem !important; }
+}
